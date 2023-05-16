@@ -1,2 +1,7 @@
+#Environment files
 env
 venv
+
+# Cache and compiled files
+__pycache__
+*.pyc
