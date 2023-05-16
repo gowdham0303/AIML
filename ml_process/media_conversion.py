@@ -1,7 +1,7 @@
 from moviepy.editor import VideoFileClip
 from pytube import YouTube
 import os
-from audio_mapper import AudioMapper
+from ml_process.audio_mapper import AudioMapper
 
 
 class VideoAudioExtractor(object):
@@ -45,6 +45,6 @@ class VideoAudioExtractor(object):
         filename = yt.title + ".mp4"
 
         # Download the video
-        stream.download(__class__.video_output_dir, filename)
+        stream.download(__class__.video_output_dir + '/' +filename)
 
         self.extract_audio(__class__.video_output_dir +'/'+ filename)

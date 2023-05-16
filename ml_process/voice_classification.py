@@ -138,7 +138,6 @@ class VoiceActivitySpeakerDiarization:
 
     def main(self):
         clusterset = self.trainGMM()
-        # clusterset = trainGMM(wavFile, frameRate, segLen, vad, numMix)
 
         scaler = StandardScaler()
         X_scaled = scaler.fit_transform(clusterset)  

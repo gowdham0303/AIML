@@ -1,6 +1,6 @@
 import pvleopard, logging
 import pandas as pd
-from voice_classification import VoiceActivitySpeakerDiarization
+from ml_process.voice_classification import VoiceActivitySpeakerDiarization
 
 
 logger = logging.getLogger()
