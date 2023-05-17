@@ -2,10 +2,8 @@ from fastapi import APIRouter, Request, File, UploadFile, status
 from fastapi.responses import HTMLResponse
 from PyPDF2 import PdfReader
 from question_processor.model import pdf_analysis
-from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from question_processor.openaifile import openaiintegration
-import os
 import re
 from typing import Optional
 from fastapi.responses import JSONResponse
@@ -19,7 +17,7 @@ FileObj = None
 class query(BaseModel):
     question: str
 
-@router.post("/uploadDocument", response_class=HTMLResponse)
+@router.post("/uploadDocument")
 async def read_item(request: Request, file: UploadFile = File(...)):
     global FileObj
     obj = pdf_analysis(PdfReader(stream=file.file))
@@ -42,8 +40,9 @@ async def home(number_of_questions:str, model_name:Optional[str]=None):
         ai_obj = openaiintegration()
         ai_obj.split_into_chunks(clean_text, " ")
         output = ai_obj.formQuestion3(number_of_questions)
-    else:
+    elif FileObj:
         print("\nINFORMATION: Entered into PDF mode for framing questions.")
         output = FileObj.generateQuestion(number_of_questions)
-      
+    else:
+        output = "No file found!"
     return output
