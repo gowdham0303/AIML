@@ -1,13 +1,12 @@
 from fastapi import APIRouter, File, UploadFile, Form
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 from fastapi import status
-
+from pathlib import Path
 from typing import Optional
-# from schemas.audio import LinkProcess
 from ml_process.audio_mapper import AudioMapper
 from ml_process.media_conversion import VideoAudioExtractor
-import os
-import pickle
+from ml_process.audio_model_training import get_answer
+import os, re
 
 router = APIRouter(
     prefix='/Audio',
@@ -30,10 +29,11 @@ async def upload_media_file(
     # Ensure the uploaded file is an audio file
     if file and file.content_type.startswith("audio/"):
         # Save the audio file
-        with open(audio_output_dir + file.filename, "wb") as audio:
+        filename = file.filename.split('.')[0] + '.wav'
+        with open(audio_output_dir + filename, "wb") as audio:
             audio.write(await file.read())
 
-            audio_mapper = AudioMapper(audio_output_dir+file.filename)
+            audio_mapper = AudioMapper(audio_output_dir+filename)
             audio_mapper.sentence_mapper()
         return JSONResponse(
             status_code= status.HTTP_200_OK,
@@ -76,15 +76,6 @@ async def get_models():
         content= {"message": "Model list successfully fetched", "model_list": file_list}
     )
 
-from ml_process.audio_model_training import get_answer
-@router.get('/question')
-async def get_question(question: str, model: str):
-    question += 'give me with time frame'
-    res = get_answer(question, model)
-    return res
-    
-
-
 @router.get("/select_model")
 async def select_model(model_name):
     file_path = os.path.join(os.getcwd(),'models',model_name+'.pkl')
@@ -100,23 +91,42 @@ async def select_model(model_name):
         )
     
 
-
-@router.get("/download_media")
-async def download_media():
-    media_file_path = ""
-    if not os.path.isfile(media_file_path):
+@router.get("/download")
+async def download_file(model_name: str):
+    try:
+        filename = f"input/audio/{model_name}.wav"
+        return FileResponse(filename, media_type="application/octet-stream", filename=filename.split('/')[-1])
+    except FileNotFoundError:
         return JSONResponse(
-            status_code= status.HTTP_400_BAD_REQUEST,
-            content= {"message": "Media file not found"},
-        )
-    return JSONResponse(
-        status_code= status.HTTP_200_OK,
-        content= {"message": "Media file downloaded successfully"}
-    )
+                status_code= status.HTTP_400_BAD_REQUEST,
+                content= {"message": "File not found"},
+            )
 
+@router.get('/question')
+async def get_question(question: str, model: str):
+    try:
+        question += ' and give me the timeframe in paranthesis'
+        res = get_answer(question, model)
+        print(res)
+        pattern = r'\((.*?)\)'
+        matches = re.findall(pattern, res)
 
-# @router.post("/qa")
-# async def get_answer(data: QA):
-#     obj = pkl.load(os.path.join(os.getcwd(), "files", "trained", str(data.model).strip()+".pkl"))
-#     method, answer = model_obj.model1_qa(data.question, obj.get("docsearch"), obj.get("chain"))
-#     return {"method": method ,"answer": answer}
+        if matches:
+            timeframe = matches[0]
+            answer = re.sub(pattern, '', res).strip()
+        else:
+            timeframe = matches[0]
+            answer = re.sub(pattern, '', res).strip()
+
+        return JSONResponse(
+                status_code= status.HTTP_200_OK,
+                content= {
+                    "answer": answer,
+                    'timeframe': timeframe
+                }
+            )
+    except Exception as e:
+        return JSONResponse(
+                status_code= status.HTTP_400_BAD_REQUEST,
+                content= {"exception": e.args[0]},
+            )
