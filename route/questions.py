@@ -17,14 +17,14 @@ FileObj = None
 class query(BaseModel):
     question: str
 
-@router.post("/upload", response_class=HTMLResponse)
+@router.post("/upload_document", response_class=HTMLResponse)
 async def read_item(request: Request, file: UploadFile = File(...)):
     global FileObj
     obj = pdf_analysis(PdfReader(stream=file.file))
     FileObj = obj
     return "File Upload Sucessfully"
 
-@router.post("/question")
+@router.post("/number_of_questions")
 async def home(question:str):
     print("Question input is :", question)
     if FileObj:
