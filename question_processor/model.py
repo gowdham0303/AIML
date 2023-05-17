@@ -10,7 +10,7 @@ import tabula
 
 
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = ""
 obj = None
 
 class pdf_analysis:

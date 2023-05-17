@@ -37,27 +37,16 @@ class openaiintegration:
                         {"role":"user", "content":"".join(['Generate ', numberOfQuestions,' very complex questions based on the topics ',covered_topics])}]
         )
         responseFromGPT = response.choices[0].message.content
-        print(type(responseFromGPT), responseFromGPT)
         result = self.limitQuestions(responseFromGPT, int(numberOfQuestions))
         return result
     
     #To limit number of questions even if we get more number of questions from GPT
     def limitQuestions(self, response:str, numberOfQuestions:int):
-        print(response,777777777777777777, numberOfQuestions)
-        print(response.split('\n\n'))
-        # Splitting the string based on integer bullets
-        bullets = [str(i) + '.' for i in range(1, 10)]
-        delimiter = '|'.join(bullets)
-        print("Bullets are :", bullets)
-
-        # Using str.split() with the custom delimiter
-        items = re.split(delimiter, response)
-        items = [item.strip() for item in items if item.strip()]
-
-        newArray = []
-        for i in range(0,len(items)):
-            if(i<numberOfQuestions ):
-                newArray.append(str(i+1) + ". " + items[i])
-            else:
-                break
-        return "\n\n".join(newArray)
+        splited_response = response.split('\n')
+        new_response = []
+        i = 0
+        for checker in splited_response:
+            if checker and i<numberOfQuestions:
+                new_response.append(checker)
+                i+=1
+        return new_response
