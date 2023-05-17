@@ -70,3 +70,10 @@ async def upload_media_file(
 async def get_models():
     file_list = os.listdir(os.getcwd() + '/models') 
     print(file_list)
+
+from ml_process.audio_model_training import get_answer
+@router.get('/question')
+async def get_question(question: str, model: str):
+    question += 'give me with time frame'
+    res = get_answer(question, model)
+    return res

@@ -6,16 +6,14 @@ from langchain.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain.llms import OpenAI
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "" #API key from open AI.
 
 class Models(object):
     def __init__(self, filename):
         self.filename = filename
 
     def dump(self, chain, docsearch):
-        # os.makedirs('/models/', exist_ok=True)
-        os.chdir('models')
-        pickle.dump({"chain": chain, "docsearch": docsearch}, open(f'{self.filename}.pkl', 'wb'))
+        pickle.dump({"chain": chain, "docsearch": docsearch}, open(f'models/{self.filename}.pkl', 'wb'))
 
     def model(self):
         self.embeddings = OpenAIEmbeddings()
@@ -37,7 +35,7 @@ class Models(object):
         
     
 def get_answer(question: str, model: str):
-    data = pickle.load(open(f'/models/{model}.pkl', 'rb'))
+    data = pickle.load(open(f'models/{model}.pkl', 'rb'))
     chain, docsearch =  data.get("chain"), data.get("docsearch")
     docs = docsearch.similarity_search(question)
     return chain.run(input_documents=docs, question=question)
