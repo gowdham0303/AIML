@@ -6,6 +6,8 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from question_processor.openaifile import openaiintegration
 import os
+import re
+from typing import Optional
 from fastapi.responses import JSONResponse
 
 router = APIRouter(
@@ -25,21 +27,23 @@ async def read_item(request: Request, file: UploadFile = File(...)):
     return "File Upload Sucessfully"
 
 @router.post("/questions")
-async def home(number_of_questions:str):
+async def home(number_of_questions:str, model_name:Optional[str]=None):
     print("Question input is :", number_of_questions)
-    if FileObj:
-        print(111111111111111111111)
-        output = FileObj.generateQuestion(number_of_questions)
-    elif os.path.isfile('output.txt'):
-        print(22222222222222)
-        with open('output.txt','r+') as file:
+    if model_name:
+        print("\nINFORMATION: Entered into Media mode for framing questions.")
+        path_of_file = 'extracted_files/' + model_name + '.txt' 
+        with open(path_of_file,'r+') as file:
             file_obj = file.read()
+            # Define the regular expression pattern
+            pattern = r'\d{2}:\d{2}:\d{2}-\d{2}:\d{2}:\d{2}\sSpeaker \d:'
+
+            # Remove the matched pattern from the text
+            clean_text = re.sub(pattern, '', file_obj)
         ai_obj = openaiintegration()
-        ai_obj.split_into_chunks(file_obj, " ")
+        ai_obj.split_into_chunks(clean_text, " ")
         output = ai_obj.formQuestion3(number_of_questions)
     else:
-        return JSONResponse(
-            status_code=status.HTTP_404_NOT_FOUND,
-            content= {"message": "Input File Not Found"},
-        )
+        print("\nINFORMATION: Entered into PDF mode for framing questions.")
+        output = FileObj.generateQuestion(number_of_questions)
+      
     return output

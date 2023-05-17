@@ -6,7 +6,7 @@ from langchain.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain.llms import OpenAI
 
-os.environ["OPENAI_API_KEY"] = "" #API key from open AI.
+os.environ["OPENAI_API_KEY"] = "KEY"
 
 class Models(object):
     def __init__(self, filename):
