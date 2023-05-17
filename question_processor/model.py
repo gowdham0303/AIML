@@ -6,11 +6,10 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.llms import OpenAI
 from question_processor.openaifile import openaiintegration
 import os
-import tabula
 
 
 
-os.environ["OPENAI_API_KEY"] = ""
+os.environ["OPENAI_API_KEY"] = "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"
 obj = None
 
 class pdf_analysis:

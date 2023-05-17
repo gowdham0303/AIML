@@ -17,26 +17,26 @@ FileObj = None
 class query(BaseModel):
     question: str
 
-@router.post("/upload_document", response_class=HTMLResponse)
+@router.post("/uploadDocument", response_class=HTMLResponse)
 async def read_item(request: Request, file: UploadFile = File(...)):
     global FileObj
     obj = pdf_analysis(PdfReader(stream=file.file))
     FileObj = obj
     return "File Upload Sucessfully"
 
-@router.post("/number_of_questions")
-async def home(question:str):
-    print("Question input is :", question)
+@router.post("/questions")
+async def home(number_of_questions:str):
+    print("Question input is :", number_of_questions)
     if FileObj:
         print(111111111111111111111)
-        output = FileObj.generateQuestion(question)
+        output = FileObj.generateQuestion(number_of_questions)
     elif os.path.isfile('output.txt'):
         print(22222222222222)
         with open('output.txt','r+') as file:
             file_obj = file.read()
         ai_obj = openaiintegration()
         ai_obj.split_into_chunks(file_obj, " ")
-        output = ai_obj.formQuestion3(question)
+        output = ai_obj.formQuestion3(number_of_questions)
     else:
         return JSONResponse(
             status_code=status.HTTP_404_NOT_FOUND,
