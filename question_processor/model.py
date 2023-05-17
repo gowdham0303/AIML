@@ -9,7 +9,7 @@ import os
 
 
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = ""
 obj = None
 
 class pdf_analysis:
