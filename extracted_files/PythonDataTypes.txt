@@ -1,0 +1,28 @@
+00:00:00-00:00:04 Speaker 0: hello everyone welcome back to my channel and
+00:00:04-00:00:09 Speaker 1: in this video we are gonna see data types in python so basically
+00:00:09-00:00:13 Speaker 0: there are there are eight of them ain't float strain list
+00:00:13-00:00:18 Speaker 1: dictionary toppled set boolean okay but
+00:00:18-00:00:43 Speaker 0: this okay now first one is end so it is basically whole numbers basically three three hundred two hundred whole numbers the second data type is float basically numbers with a decimal point so any particular number with our decimal points or two point three four point six hundred point zero so please notice that even though hundred a hundred point zero it
+00:00:43-00:00:57 Speaker 1: is it will still be considered as float because it has a discipline point okay now a third data type is string okay string and strings are basically ordered sequences of characters basically an order
+00:00:57-00:01:25 Speaker 0: sequence of characters so hello or concepts or two hundred are basically anything in inverted commas so even a number in in what it commerce will be considered as a string because it is in inverted commas so basically anything in single and what did come as a double and what ecommerce is considered as string even any spare any sort of special characters in double work W and commerce is considered
+00:01:25-00:01:39 Speaker 1: at stream then we have list dictionary tackle and Surtees for are basically collections so I don't teach them all together but before that lets let's complete this data right which is boolean so Bolian
+00:01:39-00:01:43 Speaker 0: is basically true of false basically not logical values integrating
+00:01:43-00:01:53 Speaker 1: true of miles this is our data right now let's see these four so let's see list first list is an ordered sequence of objects so
+00:01:53-00:02:54 Speaker 0: as a written over your list will be in square brackets whenever list is being declared it will be declared in square brackets this is basically order changeable or a list is ordered changeable and it allows duplicates in it okay now by order what does it mean by order now now the list has these values pain hello two hundred point three what I mean by ordered in his menu when you use the index and why I suppose this list has a name where under x-ray busy and then I right where underscore ABC square brackets one I am I am going to print basically this thing is on a print the value at first index so this is your zero zeroth index this we of person dies is the second x index cylinders so it will print hello so order means they will be ordered okay now the
+00:02:54-00:03:12 Speaker 1: second one is a tuple double is declared in couples are declaring circular Bratton's so tuples are again ordered but they are unchangeable you cannot change the values and it allows duplicates so it is very one similar to
+00:03:12-00:03:22 Speaker 0: to list but only difference is that list list is declared in square back of this is declared in circular brackets and list is changeable and topple is unchangeable now what
+00:03:22-00:03:26 Speaker 1: do I mean by unchangeable now when you have a list as you can see
+00:03:26-00:03:33 Speaker 0: where list you can change it you can append a value can change a while you can change the value at zero with index to some
+00:03:33-00:03:40 Speaker 1: other while you can do that but in case of trouble you cannot once you have declared it it is digger you cannot change you cannot attend
+00:03:40-00:03:47 Speaker 0: a while you cannot remove a value it is not changeable it is ordered immutable sequence of object immutably means it cannot be changed
+00:03:47-00:04:29 Speaker 1: so I hope listened to the this clear now let's see it now what is set set is an ordered an index and it allows no duplicators so as you can see an example of our it has a and me and you cannot have the crickets in case of list or dictionary or double so you know additionally in case of listened tableaus you can have duplicates because they are there having an index position you can again happen have a value ten at the third indites okay you can have that but but in case of said you cannot have duplicate and it is unordered so in case you want to print anything you cannot you have
+00:04:29-00:04:32 Speaker 0: to put a loop in it and then on you can preprinted you cannot
+00:04:32-00:04:44 Speaker 1: use a use indexes to print values so now let's see what does a dictionary do so additionally is an ordered changeable
+00:04:44-00:04:48 Speaker 0: index and it allows no duplicates now there
+00:04:48-00:05:00 Speaker 1: they're actually just key-value pairs there will be a key level be a valuable will be a key there will be a value so you're the key is near and the value is crack concepts another key is key one and the values
+00:05:00-00:05:07 Speaker 0: value one so whenever suppose the dictionary name is this DC so whenever I write this DC and in brackets I
+00:05:07-00:05:15 Speaker 1: write names I'm giving up giving the key value of you so then I'm giving the key value for your name the name name what is the value
+00:05:15-00:05:19 Speaker 0: for this particular key crack concept so it will print crack concerts
+00:05:19-00:05:23 Speaker 1: this is what dictionary is I hope it was clear thank you for watching
+00:05:23-00:05:27 Speaker 0: the video and if will help you please consider can subscribe to the channel
+00:05:27-00:05:27 Speaker 1: thank

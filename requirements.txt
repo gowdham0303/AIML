@@ -74,3 +74,13 @@ tzdata==2023.3
 urllib3==2.0.2
 uvicorn==0.22.0
 yarl==1.9.2
+
+
+
+
+
+PyPDF2==3.0.1
+openai==0.27.6
+tiktoken==0.4.0
+faiss-cpu==1.7.4
+regex==2023.5.5
