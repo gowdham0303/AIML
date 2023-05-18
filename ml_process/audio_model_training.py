@@ -39,10 +39,3 @@ def get_answer(question: str, model: str):
     chain, docsearch =  data.get("chain"), data.get("docsearch")
     docs = docsearch.similarity_search(question)
     return chain.run(input_documents=docs, question=question)
-
-# if __name__ == "__main__":
-#     obj = Models()
-#     obj.model()
-#     question = lambda t: print(get_answer(t))
-
-#     question("who lost all money")
